@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int n;
+    cout<<"ENter the length of the array\n";
+    cin>>n;
+    int arr[n];
+    cout<<"ENter the elements of the array\n";
+    for(int i=0;i<n;i++)
+    cin>>arr[i];
+
+    // Maximum subarray sum = Total sum of the array - sum of non-contributing arrays
+
+    //for eg -> if there is a array like {4,-4,6,-6,-11,12}, for circular array the sum of the array can also continue from 12 to 
+    //4 to -4 and so on as if these elements were placed in a circle.
+    // to the sum of non-contributing elements we will reverse the sign of the elements of the array and find the non contributing 
+    //element using Kanade algorithm.
+
+    int Negarr[n];// used to store elements of array but the sign of elements of the array are reversed.
+    for(int i=0;i<n;i++)
+    {
+        Negarr[i]=-arr[i];
+    }
+    int currentSum=0;int finalSum=0;
+    for(int i=0;i<n;i++)
+    {
+        currentSum+=Negarr[i];
+        if(currentSum<0)
+        currentSum=0;
+        finalSum=max(finalSum,currentSum);
+    }
+    int TotalSumOfArray=0;
+    for (int i = 0; i < n; i++)     
+    {
+        TotalSumOfArray+=arr[i];
+    }
+    int ans = TotalSumOfArray+finalSum;
+    cout<<ans<<endl;
+    return 0;
+}
